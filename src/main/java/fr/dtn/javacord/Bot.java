@@ -67,6 +67,7 @@ public class Bot {
 
         if (!directory.exists()) {
             logger.warn("The specified directory does not exist : '{}'", path);
+            logger.warn("Consider using the Javacord#setup function to create and setup the bot directory");
             throw new IllegalArgumentException("The specified directory does not exist : '" + path + "'");
         }
 
@@ -74,6 +75,14 @@ public class Bot {
 
         // Load configuration
         File configFile = new File(directory, "config.toml");
+
+        if (!configFile.exists()) {
+            logger.warn("The specified directory '{}' does not contain any config.toml configuration file...", directory.getPath());
+            logger.warn("Consider using the Javacord#setup function to create and setup the bot directory");
+            throw new IllegalArgumentException("The specified directory '" + directory.getPath() + "' does not contain any config.toml configuration file...");
+        }
+
+        /* *
 
         if (!configFile.exists()) {
             logger.warn("There is no 'config.toml' file in the directory");
@@ -89,6 +98,8 @@ public class Bot {
                 throw new InternalError(e);
             }
         }
+
+         */
 
         logger.info("Loading config : '{}'", configFile.getPath());
 
