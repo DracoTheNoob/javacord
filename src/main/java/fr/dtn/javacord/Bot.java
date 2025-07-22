@@ -4,6 +4,7 @@ import com.moandjiezana.toml.Toml;
 import fr.dtn.javacord.commands.raw.RawCommand;
 import fr.dtn.javacord.commands.slash.Parameter;
 import fr.dtn.javacord.commands.slash.SlashCommand;
+import fr.dtn.javacord.database.Database;
 import fr.dtn.javacord.event.EventHandler;
 import fr.dtn.javacord.interaction.ButtonExecutor;
 import fr.dtn.javacord.interaction.JavacordButton;
@@ -55,6 +56,8 @@ public class Bot {
     private final List<RawCommand> rawCommands;
     private final List<SlashCommand> slashCommands;
     private final List<JavacordButton> buttons;
+
+    private Database database;
 
     private MessageEmbed noPermissionMessage = EmbedUtils.createError("You do not have the permission to use this command");
 
@@ -129,7 +132,7 @@ public class Bot {
         logger.info("Creating Bot with intents : {}", intents);
 
         // Create bot builder
-        DefaultShardManagerBuilder botBuilder = DefaultShardManagerBuilder.createDefault(token, intents);
+        DefaultShardManagerBuilder botBuilder = DefaultShardManagerBuilder.createDefault(token, intents).setEventPassthrough(true);
 
         // Load status from config
         String statusName = config.getString("bot.status");
@@ -194,6 +197,21 @@ public class Bot {
 
         registerRawCommands(new File(this.directory, "commands/raw"));
         registerSlashCommands(new File(this.directory, "commands/slash"));
+
+        String databaseUrl = config.getString("database.url");
+        String databaseUser = config.getString("database.user");
+        String databasePassword = config.getString("database.password");
+
+        if (databaseUrl != null && databaseUser != null) {
+            try {
+                this.database = new Database(this, databaseUrl, databaseUser, databasePassword);
+            } catch (IllegalArgumentException e) {
+                logger.warn("Invalid database url, user, or password");
+                this.database = null;
+            }
+        } else {
+            this.database = null;
+        }
     }
 
     public void registerEventHandlers(EventHandler<?> first, EventHandler<?>... others) {
@@ -410,5 +428,13 @@ public class Bot {
 
     public Button createButton(ButtonStyle style, String label, ButtonExecutor executor) {
         return createButton(new JavacordButton(style, label, executor));
+    }
+
+    public Database getDatabase() {
+        if (database != null) {
+            return database;
+        }
+
+        throw new IllegalStateException("The database was not instantiated in the configuration file");
     }
 }

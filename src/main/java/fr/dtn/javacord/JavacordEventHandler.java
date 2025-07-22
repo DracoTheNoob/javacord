@@ -59,8 +59,8 @@ public class JavacordEventHandler extends ListenerAdapter {
                 }
             } catch (ClassCastException ignored) {
             } catch (Exception e) {
-                logger.error("WTF ???");
-                throw new InternalError("This is not supposed to happen...");
+                logger.warn("An error occured while executing one of your EventHandler instances");
+                throw e;
             }
         }
     }
