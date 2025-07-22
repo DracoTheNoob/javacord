@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Console appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{dd.MM.YYYY - HH:mm:ss}][%logger{36}][%t][%level]: %msg%n%throwable"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- Application logger (optional: set package or class filter) -->
+        <Logger name="fr.dtn" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- Root logger (catch-all fallback) -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,15 @@
+[bot]
+token = '' # Mandatory : Your bot token
+status = '' # Optional : The status of your bot (ONLINE / IDLE / DO_NOT_DISTURB / INVISIBLE / OFFLINE )
+activity = '' # Optional : Type of activity ( PLAYING / STREAMING / LISTENING / CUSTOM_STATUS / COMPETING ) + " " + text of activity
+prefix = '' # Optional : The prefix of raw text commands. Default value : '!'
+intents = [] # Mandatory : The string names of the intents that you bot enable
+
+# Optional : your database information (all fields are mandatory if you use a database)
+[database]
+user = '' # The name of the user that has permissions on the database
+url = '' # The url that points to the database to use
+password = '' # The given user's password
+
+[log]
+debug = true # Whether the debug logs are enabled or not (true : logging whenever event handlers, commands, etc. are used)
