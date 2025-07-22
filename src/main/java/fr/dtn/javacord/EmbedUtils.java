@@ -3,7 +3,7 @@ package fr.dtn.javacord;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class EmbedUtils {
     public static MessageEmbed create(String title, String description, Color color) {

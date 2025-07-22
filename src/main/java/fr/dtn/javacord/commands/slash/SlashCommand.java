@@ -3,10 +3,6 @@ package fr.dtn.javacord.commands.slash;
 import com.moandjiezana.toml.Toml;
 import fr.dtn.javacord.Bot;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.apache.logging.log4j.LogManager;
@@ -18,33 +14,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Class that represents a slash command
- */
 public class SlashCommand {
     private static final Logger logger = LogManager.getLogger();
 
-    /**
-     * The display name and description of the slash command
-     */
     private final String displayName, description;
-    /**
-     * The permissions required to run the slash command
-     */
     private Permission[] permissions;
-    /**
-     * The executor of the slash command
-     */
     private SlashCommandExecutor executor;
-    /**
-     * The parameters of the slash command
-     */
     private List<Parameter> parameters;
 
-    /**
-     * Constructor
-     * @param file The configuration file of the slash command
-     */
     public SlashCommand(File file){
         logger.info("Loading slash command from file '" + file.getPath() + "'");
         Toml toml = new Toml().read(file);
@@ -126,40 +103,15 @@ public class SlashCommand {
         logger.info("Slash command '" + displayName + "' loaded successfully");
     }
 
-    /**
-     * To execute the command
-     * @param bot The current bot
-     * @param guild The guild where the slash command is used
-     * @param channel The text channel where the slash command is used
-     * @param author The author of the slash command
-     * @param member The author of the slash command as a member of the guild
-     * @param event The event
-     */
     public void execute(Bot bot, SlashCommandInteractionEvent event) {
         executor.execute(bot, event);
     }
 
-    /**
-     * To get displayName
-     * @return displayName
-     */
     public String getDisplayName() { return displayName; }
 
-    /**
-     * To get description
-     * @return Description
-     */
     public String getDescription() { return description; }
 
-    /**
-     * To get permissions
-     * @return Permissions
-     */
     public Permission[] getPermissions() { return permissions; }
 
-    /**
-     * To get parameters
-     * @return Parameters
-     */
     public List<Parameter> getParameters(){ return parameters; }
 }
