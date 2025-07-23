@@ -187,27 +187,10 @@ public class Bot {
         this.commandPrefix = config.getString("bot.prefix", "!");
         logger.info("Using raw command prefix '{}'", commandPrefix);
 
-        // Create bot
-        try {
-            this.bot = botBuilder.build();
-            this.bot.addEventListener(new JavacordEventHandler(this));
-        } catch (InvalidTokenException e) {
-            logger.error("The token specified in the config is invalid");
-            System.exit(0);
-        }
-
         logger.info("Bot created successfully !");
 
         this.debugMode = config.getBoolean("log.debug", false);
         logger.info("The logging debug mode is {}", debugMode ? "ENABLED" : "DISABLED");
-
-        this.eventHandlers = new ArrayList<>();
-        this.rawCommands = new ArrayList<>();
-        this.slashCommands = new ArrayList<>();
-        this.buttons = new ArrayList<>();
-
-        registerRawCommands(new File(this.directory, "commands/raw"));
-        registerSlashCommands(new File(this.directory, "commands/slash"));
 
         String databaseUrl = config.getString("database.url");
         String databaseUser = config.getString("database.user");
@@ -223,6 +206,23 @@ public class Bot {
         } else {
             this.database = null;
         }
+
+        // Create bot
+        try {
+            this.bot = botBuilder.build();
+            this.bot.addEventListener(new JavacordEventHandler(this));
+        } catch (InvalidTokenException e) {
+            logger.error("The token specified in the config is invalid");
+            System.exit(0);
+        }
+
+        this.eventHandlers = new ArrayList<>();
+        this.rawCommands = new ArrayList<>();
+        this.slashCommands = new ArrayList<>();
+        this.buttons = new ArrayList<>();
+
+        registerRawCommands(new File(this.directory, "commands/raw"));
+        registerSlashCommands(new File(this.directory, "commands/slash"));
     }
 
     public void registerEventHandlers(EventHandler<?> first, EventHandler<?>... others) {

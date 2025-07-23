@@ -66,7 +66,7 @@ public class JavacordEventHandler extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) { // TODO : solve possibles issues when commands are used in DM with bot
         User author = event.getAuthor();
         Member member = event.getMember();
         Message message = event.getMessage();

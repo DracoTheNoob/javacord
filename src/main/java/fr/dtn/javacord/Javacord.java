@@ -48,7 +48,7 @@ public class Javacord {
         }
     }
 
-    public static String askString(Scanner scanner, String message, String... possibilities) {
+    private static String askString(Scanner scanner, String message, String... possibilities) {
         if (possibilities == null || possibilities.length == 0) {
             System.out.print(message);
             return scanner.nextLine();
