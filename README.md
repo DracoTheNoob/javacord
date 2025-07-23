@@ -26,6 +26,10 @@ You must as well add some dependencies :
 dependencies {
     implementation 'net.dv8tion:JDA:5.0.0-beta.10'
     implementation 'com.github.DracoTheNoob:javacord:master-SNAPSHOT'
+    
+    // Those are only usefull if you work with databases
+    implementation 'org.hibernate.orm:hibernate-core:7.0.6.Final'
+    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
 }
 ```
 
