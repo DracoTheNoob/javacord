@@ -60,6 +60,7 @@ public class Bot {
     private Database database;
 
     private MessageEmbed noPermissionMessage = EmbedUtils.createError("You do not have the permission to use this command");
+    private MessageEmbed errorMessage = EmbedUtils.createError("An internal error has occurred");
 
     public Bot(String path) {
         // Load directory
@@ -447,5 +448,13 @@ public class Bot {
         }
 
         throw new IllegalStateException("The database was not instantiated in the configuration file");
+    }
+
+    public MessageEmbed getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(MessageEmbed errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

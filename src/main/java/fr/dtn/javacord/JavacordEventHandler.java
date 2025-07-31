@@ -120,7 +120,7 @@ public class JavacordEventHandler extends ListenerAdapter {
         if(command == null){
             logger.warn("No executor for slash command '" + event.getName() + "' : Unable to execute it");
             event.deferReply().queue();
-            event.deferReply(true).queue(hook -> hook.sendMessage("An internal error occured...").queue());
+            event.deferReply(true).queue(hook -> hook.sendMessageEmbeds(bot.getErrorMessage()).queue());
             return;
         }
 
@@ -130,7 +130,7 @@ public class JavacordEventHandler extends ListenerAdapter {
             }
 
             event.deferReply().queue();
-            event.deferReply(true).queue(hook -> hook.sendMessage("You do not have the permission to use this command").queue());
+            event.deferReply(true).queue(hook -> hook.sendMessageEmbeds(bot.getNoPermissionMessage()).queue());
             return;
         }
 
@@ -150,7 +150,7 @@ public class JavacordEventHandler extends ListenerAdapter {
         if (executor == null) {
             logger.warn("No executor for button with id='" + buttonId + "' and label='" + button.getLabel() + "' : Unable to execute it");
             event.deferReply().queue();
-            event.deferReply(true).queue(hook -> hook.sendMessage("An internal error occured...").queue());
+            event.deferReply(true).queue(hook -> hook.sendMessageEmbeds(bot.getErrorMessage()).queue());
             return;
         }
 
